@@ -21,10 +21,8 @@ public class PlayerController : MonoBehaviour {
 		anim = GetComponent<Animator>();
 	}
 	
-	void Update()
-	{
-		if( grounded && Input.GetKeyDown(KeyCode.Space) )
-		{
+	void Update(){
+		if( grounded && Input.GetKeyDown(KeyCode.Space) ){
 			anim.SetBool("Ground", false);
 			r2d.AddForce(new Vector2(0, jumpForce));
 		}
