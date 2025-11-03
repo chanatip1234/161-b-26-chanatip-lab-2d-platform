@@ -12,7 +12,7 @@ public class Crocodie : Enemy , IShoottable
 
     void Start()
     {
-        base.Intialize(50);
+        base.Initialize(50);
         DamageHit = 30;
         //set atk range and target
         atkRange = 6.0f;

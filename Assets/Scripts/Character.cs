@@ -5,10 +5,6 @@ public class character : HealthSystem
     protected Animator anim;
     protected Rigidbody2D rb;
 
-    [Header("Health Bar")]
-    [SerializeField] private GameObject healthBarPrefab;
-    private Transform healthBarInstance;
-
     protected override void Start()
     {
         base.Start();
@@ -18,7 +14,7 @@ public class character : HealthSystem
         CreateHealthBar();
     }
 
-    public void Intialize(float startHealth)
+    public void SetupCharacter(float startHealth)
     {
         Initialize(startHealth);
         Debug.Log($"{name} initialized with health {currentHealth}");
@@ -49,15 +45,14 @@ public class character : HealthSystem
             return;
         }
 
-        GameObject hb = Instantiate(healthBarPrefab, transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity);
-        hb.transform.SetParent(transform);
+        GameObject hb = Instantiate(healthBarPrefab, transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity, transform);
         hb.transform.localPosition = new Vector3(0, 1.5f, 0);
+        hb.transform.localScale = Vector3.one * 0.01f;
 
         Transform fill = hb.transform.Find("Fill");
         if (fill != null)
         {
             healthBarFill = fill;
         }
-        healthBarInstance = hb.transform;
     }
 }

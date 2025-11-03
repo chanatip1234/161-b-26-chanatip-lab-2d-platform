@@ -7,7 +7,7 @@ public  class Ant : Enemy
     protected override void Start()
     {
         base.Start();
-        base.Intialize(20);
+        base.Initialize(20);
         DamageHit = 20;
         velocity = new Vector2(-moveSpeed, 0f);
     }
