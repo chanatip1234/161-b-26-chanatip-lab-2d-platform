@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
 	public Transform groundCheck;
 	float groundRadius = 0.2f;
 	public LayerMask whatIsGround;
-	public float jumpForce = 700.0f;
+	public float jumpForce = 70.0f;
 
 	// Use this for initialization
 	void Start () {

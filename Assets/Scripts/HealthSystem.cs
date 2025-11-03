@@ -12,7 +12,7 @@ public class HealthSystem : MonoBehaviour
         UpdateHealthBar();
     }
 
-    public void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount)
     {
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -45,4 +45,5 @@ public class HealthSystem : MonoBehaviour
     {
         return currentHealth <= 0;
     }
+
 }

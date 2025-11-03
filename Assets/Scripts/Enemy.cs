@@ -13,7 +13,7 @@ public abstract class Enemy : character
     protected virtual void Start()
     {
         // เรียก initialize จาก character (สืบทอดมาจาก HealthSystem)
-        base.Intialize(50); // เลือดเริ่มต้นของศัตรู
+        base.Intialize(50f); // เลือดเริ่มต้นของศัตรู
 
         rb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player")?.transform;

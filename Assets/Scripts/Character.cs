@@ -1,58 +1,63 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class character : HealthSystem
 {
-
-    private int heath;
-
-    public int Heath
-    {
-        get { return heath; }
-        set { heath = (value < 0) ? 0 : value; }
-    }
     protected Animator anim;
     protected Rigidbody2D rb;
 
+    [Header("Health Bar")]
+    [SerializeField] private GameObject healthBarPrefab;
+    private Transform healthBarInstance;
 
-    public void Intialize (int startHeath)
+    protected override void Start()
     {
-        Heath = startHeath;
-        Debug.Log($"{this.name} is intialize Heath : {this.Heath}");
-
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
+        CreateHealthBar();
     }
 
-
-
-
-    public void  TakeDamage(int damage)
+    public void Intialize(float startHealth)
     {
-        Heath -= damage;
-        Debug.Log($"{this.name} took damage {damage}. Current Heath : {Heath}");
-
-        IsDead();
+        Initialize(startHealth);
+        Debug.Log($"{name} initialized with health {currentHealth}");
     }
-    public bool IsDead()
+
+    public override void TakeDamage(float damage)
     {
-        if (heath <= 0)
+        base.TakeDamage(damage); // เรียกจาก HealthSystem → อัปเดต bar อัตโนมัติ
+        Debug.Log($"{name} took {damage} damage. Current HP: {currentHealth}");
+
+        if (IsDead())
         {
-            Destroy(this.gameObject);
-            return true;
+            Die();
         }
-        else { return false; };
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Die()
     {
-        
+        Debug.Log($"{name} has died.");
+        Destroy(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void CreateHealthBar()
     {
-        
+        if (healthBarPrefab == null)
+        {
+            Debug.LogWarning($"{name} has no HealthBar prefab assigned!");
+            return;
+        }
+
+        GameObject hb = Instantiate(healthBarPrefab, transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity);
+        hb.transform.SetParent(transform);
+        hb.transform.localPosition = new Vector3(0, 1.5f, 0);
+
+        Transform fill = hb.transform.Find("Fill");
+        if (fill != null)
+        {
+            healthBarFill = fill;
+        }
+        healthBarInstance = hb.transform;
     }
 }
