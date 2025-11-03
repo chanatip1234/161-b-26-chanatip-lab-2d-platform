@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : character , IShoottable
+public class Player : character , IShoottable 
 {
     [field :SerializeField] public GameObject Bullet { get; set; }
     [field :SerializeField] public Transform ShootPoint { get ; set ; }
@@ -23,14 +23,17 @@ public class Player : character , IShoottable
     public void OnHitWith(Enemy enemy)
     {
         TakeDamage(enemy.DamageHit);
+        if (IsDead())
+        {
+            Debug.Log("Player Dead");
+        }
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
       Enemy enemy =other.gameObject.GetComponent<Enemy>();
         if (enemy != null)
         {
-          OnHitWith(enemy);
-            IsDead();
+          OnHitWith(enemy);         
         }
     }
 
@@ -53,4 +56,5 @@ public class Player : character , IShoottable
             WaitTime = 0.0f;
         }
     }
+    
 }

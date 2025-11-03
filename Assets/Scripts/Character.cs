@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class character : MonoBehaviour
+public class character : HealthSystem
 {
 
     private int heath;
