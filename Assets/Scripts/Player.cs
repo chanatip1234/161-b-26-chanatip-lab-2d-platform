@@ -1,14 +1,25 @@
 using UnityEngine;
 
-public class Player : character
+public class Player : character , IShoottable
 {
+    [field :SerializeField] public GameObject Bullet { get; set; }
+    [field :SerializeField] public Transform ShootPoint { get ; set ; }
+    public float ReloadTime { get ; set ; }
+    public float WaitTime { get ; set ; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
 
         base.Intialize(100);
+        ReloadTime = 1.0f;
+        WaitTime = 0.0f;
     }
 
+    private void FixedUpdate()
+    {
+        WaitTime += Time.fixedDeltaTime;
+    }
     public void OnHitWith(Enemy enemy)
     {
         TakeDamage(enemy.DamageHit);
@@ -26,6 +37,20 @@ public class Player : character
     // Update is called once per frame
     void Update()
     {
-        
+        Shoot();
+    }
+
+    public void Shoot()
+    {
+        if (Input.GetButton("Fire1") & WaitTime >= ReloadTime)
+        {
+            var bullet = Instantiate(Bullet, ShootPoint.position, Quaternion.identity);
+            Banana banana = bullet.GetComponent<Banana>();
+            if (banana != null)
+            {
+                banana.Initweapon(20, this);
+            }
+            WaitTime = 0.0f;
+        }
     }
 }
