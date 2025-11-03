@@ -7,20 +7,20 @@ public abstract class Enemy : character
     public int DamageHit { get; protected set; }
     public float moveSpeed = 1.0f;
 
-    protected Transform target; // player
+    protected Transform target; 
 
     protected virtual void Start()
     {
-        // เรียก initialize จาก character (สืบทอดมาจาก HealthSystem)
-        base.Initialize(50f); // เลือดเริ่มต้นของศัตรู
-
-        rb = GetComponent<Rigidbody2D>();
+        base.Start();
+       
+        base.Initialize(50f); 
+     
         target = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
     protected virtual void FixedUpdate()
     {
-      Behavior(); // เรียกพฤติกรรมเฉพาะของศัตรูแต่ละตัว
+      Behavior(); 
     }
 
     public void OnHitWith(Player player)

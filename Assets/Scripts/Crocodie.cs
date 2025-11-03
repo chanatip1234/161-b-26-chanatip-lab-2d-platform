@@ -17,7 +17,7 @@ public class Crocodie : Enemy , IShoottable
         //set atk range and target
         atkRange = 6.0f;
         player = GameObject.FindFirstObjectByType<Player>();
-
+        anim = GetComponent<Animator>();
         WaitTime = 0.0f;
         ReloadTime = 5.0f;
     }
@@ -29,7 +29,9 @@ public class Crocodie : Enemy , IShoottable
     }
     public override void Behavior()
     {
-        //find distance between Croccodile and Player
+        if (player == null)
+            return;
+
         Vector2 distance = transform.position - player.transform.position;
         if (distance.magnitude <= atkRange)
         {
